@@ -64,8 +64,8 @@ typedef struct IC74165_Handler_s
   // Set level of the GPIO that connected to SH/LD PIN of 74165
   void (*ShLdWrite)(uint8_t);
 
-  // Read the GPIO that connected to SO PIN of 74165
-  uint8_t (*SoRead)(void);
+  // Read the GPIO that connected to Qh PIN of 74165
+  uint8_t (*QhRead)(void);
 
   // Delay (us)
   void (*DelayUs)(uint8_t);

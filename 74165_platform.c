@@ -101,18 +101,18 @@ IC74165_PlatformInit(void)
 #if defined(IC74165_PLATFORM_AVR)
   IC74165_CLK_DDR |= (1<<IC74165_CLK_NUM);
   IC74165_SHLD_DDR |= (1<<IC74165_SHLD_NUM);
-  IC74165_SO_DDR &= ~(1<<IC74165_SO_NUM);
+  IC74165_QH_DDR &= ~(1<<IC74165_QH_NUM);
 #elif defined(IC74165_PLATFORM_STM32)
   IC74165_SetGPIO_OUT(IC74165_CLK_GPIO, IC74165_CLK_PIN);
   IC74165_SetGPIO_OUT(IC74165_SHLD_GPIO, IC74165_SHLD_PIN);
-  IC74165_SetGPIO_IN(IC74165_SO_GPIO, IC74165_SO_PIN);
+  IC74165_SetGPIO_IN(IC74165_QH_GPIO, IC74165_QH_PIN);
 #elif defined(IC74165_PLATFORM_ESP32_IDF)
   uint64_t GPIO_Pad = 0;
   GPIO_Pad = (1 << IC74165_CLK_GPIO) |
              (1 << IC74165_SHLD_GPIO);
   IC74165_SetGPIO_OUT(GPIO_Pad);
 
-  GPIO_Pad = (1 << IC74165_SO_GPIO);
+  GPIO_Pad = (1 << IC74165_QH_GPIO);
   IC74165_SetGPIO_IN(GPIO_Pad);
 #endif
 }
@@ -125,27 +125,27 @@ IC74165_PlatformDeInit(void)
   IC74165_CLK_PORT &= ~(1<<IC74165_CLK_NUM);
   IC74165_SHLD_DDR &= ~(1<<IC74165_SHLD_NUM);
   IC74165_SHLD_PORT &= ~(1<<IC74165_SHLD_NUM);
-  IC74165_SO_DDR &= ~(1<<IC74165_SO_NUM);
-  IC74165_SO_PORT &= ~(1<<IC74165_SO_NUM);
+  IC74165_QH_DDR &= ~(1<<IC74165_QH_NUM);
+  IC74165_QH_PORT &= ~(1<<IC74165_QH_NUM);
 #elif defined(IC74165_PLATFORM_STM32)
 
 #elif defined(IC74165_PLATFORM_ESP32_IDF)
   gpio_reset_pin(IC74165_CLK_GPIO);
   gpio_reset_pin(IC74165_SHLD_GPIO);
-  gpio_reset_pin(IC74165_SO_GPIO);
+  gpio_reset_pin(IC74165_QH_GPIO);
 #endif
 }
 
 static uint8_t
-IC74165_SoRead(void)
+IC74165_QhRead(void)
 {
   uint8_t Result = 1;
 #if defined(IC74165_PLATFORM_AVR)
-  Result = (IC74165_SO_PIN & (1 << IC74165_SO_NUM)) ? 1 : 0;
+  Result = (IC74165_QH_PIN & (1 << IC74165_QH_NUM)) ? 1 : 0;
 #elif defined(IC74165_PLATFORM_STM32)
-  Result = HAL_GPIO_ReadPin(IC74165_SO_GPIO, IC74165_SO_PIN);
+  Result = HAL_GPIO_ReadPin(IC74165_QH_GPIO, IC74165_QH_PIN);
 #elif defined(IC74165_PLATFORM_ESP32_IDF)
-  Result = gpio_get_level(IC74165_SO_GPIO);
+  Result = gpio_get_level(IC74165_QH_GPIO);
 #endif
   return Result;
 }
@@ -212,6 +212,6 @@ IC74165_Platform_Init(IC74165_Handler_t *Handler)
   Handler->PlatformDeInit = IC74165_PlatformDeInit;
   Handler->ClkWrite = IC74165_ClkWrite;
   Handler->ShLdWrite = IC74165_ShLdWrite;
-  Handler->SoRead = IC74165_SoRead;
+  Handler->QhRead = IC74165_QhRead;
   Handler->DelayUs = IC74165_DelayUs;
 }

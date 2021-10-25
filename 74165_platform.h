@@ -63,8 +63,8 @@ extern "C" {
 #define IC74165_SHLD_DDR    DDRA
 #define IC74165_SHLD_PORT   PORTA
 #define IC74165_SHLD_NUM    1
-#define IC74165_SO_DDR      DDRA
-#define IC74165_SO_NUM      2
+#define IC74165_QH_DDR      DDRA
+#define IC74165_QH_NUM      2
 
 #elif defined(IC74165_PLATFORM_STM32)
 /**
@@ -74,8 +74,8 @@ extern "C" {
 #define IC74165_CLK_PIN     GPIO_PIN_0
 #define IC74165_SHLD_GPIO   GPIOA
 #define IC74165_SHLD_PIN    GPIO_PIN_1
-#define IC74165_SO_GPIO     GPIOA
-#define IC74165_SO_PIN      GPIO_PIN_2
+#define IC74165_QH_GPIO     GPIOA
+#define IC74165_QH_PIN      GPIO_PIN_2
 
 #elif defined(IC74165_PLATFORM_ESP32_IDF)
 /**
@@ -83,7 +83,7 @@ extern "C" {
  */
 #define IC74165_CLK_GPIO    GPIO_NUM_0
 #define IC74165_SHLD_GPIO   GPIO_NUM_1
-#define IC74165_SO_GPIO     GPIO_NUM_2
+#define IC74165_QH_GPIO     GPIO_NUM_2
 #endif
 
 
