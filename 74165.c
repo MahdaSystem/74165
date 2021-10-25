@@ -136,7 +136,7 @@ IC74165_Read(IC74165_Handler_t *Handler, uint8_t *Data,
              uint8_t Pos, uint8_t Count)
 {
   if (Handler->ChainLen == 0)
-    IC74165_FAIL;
+    return IC74165_FAIL;
 
   if (Count + Pos > Handler->ChainLen)
     Count = Handler->ChainLen - Pos;
@@ -165,7 +165,7 @@ IC74165_Result_t
 IC74165_ReadAll(IC74165_Handler_t *Handler, uint8_t *Data)
 {
   if (Handler->ChainLen == 0)
-    IC74165_FAIL;
+    return IC74165_FAIL;
 
   IC74165_Load(Handler);
 
