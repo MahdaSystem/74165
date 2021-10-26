@@ -57,9 +57,9 @@ IC74165_ShiftIn(IC74165_Handler_t *Handler, uint8_t *Data, uint8_t Count)
   for (uint8_t i = 0; i < Count; i++)
   {
     Buffer = 0;
-    for (uint8_t j = 0; j < 8; j++)
+    for (int8_t j = 7; j >= 0; j--)
     {
-      Buffer |= (Handler->QhRead() << (7 - j));
+      Buffer |= (Handler->QhRead() << j);
       Handler->ClkWrite(1);
       Handler->DelayUs(1);
       Handler->ClkWrite(0);
