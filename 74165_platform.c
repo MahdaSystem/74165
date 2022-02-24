@@ -72,26 +72,16 @@ void IC74165_SetGPIO_IN(GPIO_TypeDef *GPIOx, uint32_t GPIO_Pin)
   HAL_GPIO_Init(GPIOx, &GPIO_InitStruct);
 }
 #elif defined(IC74165_PLATFORM_ESP32_IDF)
-void IC74165_SetGPIO_OUT(uint64_t GPIO_Pad)
+void IC74165_SetGPIO_OUT(gpio_num_t GPIO_Pad)
 {
-  gpio_config_t IC74165_GPIO_CONF;
-  IC74165_GPIO_CONF.pin_bit_mask = GPIO_Pad;
-  IC74165_GPIO_CONF.mode = GPIO_MODE_OUTPUT;
-  IC74165_GPIO_CONF.pull_up_en = GPIO_PULLUP_DISABLE;
-  IC74165_GPIO_CONF.pull_down_en = GPIO_PULLDOWN_DISABLE;
-  IC74165_GPIO_CONF.intr_type = GPIO_INTR_DISABLE;
-  gpio_config(&IC74165_GPIO_CONF);
+  gpio_reset_pin(GPIO_Pad);
+  gpio_set_direction(GPIO_Pad, GPIO_MODE_OUTPUT);
 }
 
-void IC74165_SetGPIO_IN(uint64_t GPIO_Pad)
+void IC74165_SetGPIO_IN(gpio_num_t GPIO_Pad)
 {
-  gpio_config_t IC74165_GPIO_CONF;
-  IC74165_GPIO_CONF.pin_bit_mask = GPIO_Pad;
-  IC74165_GPIO_CONF.mode = GPIO_MODE_DEF_INPUT;
-  IC74165_GPIO_CONF.pull_up_en = GPIO_PULLUP_DISABLE;
-  IC74165_GPIO_CONF.pull_down_en = GPIO_PULLDOWN_DISABLE;
-  IC74165_GPIO_CONF.intr_type = GPIO_INTR_DISABLE;
-  gpio_config(&IC74165_GPIO_CONF);
+  gpio_reset_pin(GPIO_Pad);
+  gpio_set_direction(GPIO_Pad, GPIO_MODE_INPUT);
 }
 #endif
 
@@ -107,13 +97,9 @@ IC74165_PlatformInit(void)
   IC74165_SetGPIO_OUT(IC74165_SHLD_GPIO, IC74165_SHLD_PIN);
   IC74165_SetGPIO_IN(IC74165_QH_GPIO, IC74165_QH_PIN);
 #elif defined(IC74165_PLATFORM_ESP32_IDF)
-  uint64_t GPIO_Pad = 0;
-  GPIO_Pad = (1 << IC74165_CLK_GPIO) |
-             (1 << IC74165_SHLD_GPIO);
-  IC74165_SetGPIO_OUT(GPIO_Pad);
-
-  GPIO_Pad = (1 << IC74165_QH_GPIO);
-  IC74165_SetGPIO_IN(GPIO_Pad);
+  IC74165_SetGPIO_OUT(IC74165_CLK_GPIO);
+  IC74165_SetGPIO_OUT(IC74165_SHLD_GPIO);
+  IC74165_SetGPIO_IN(IC74165_QH_GPIO);
 #endif
 }
 
