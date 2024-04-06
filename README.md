@@ -1,4 +1,4 @@
-# SHT3x Library
+# 74165 Library
 74165 8-bit serial shift register driver.
 - Support chaining of multiple 74165
 
