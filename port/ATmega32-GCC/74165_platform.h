@@ -44,47 +44,23 @@ extern "C" {
 
 /* Functionality Options --------------------------------------------------------*/
 /**
- * @brief  Specify the target platform
- * @note   Uncomment the line below according to the target platform
- */ 
-// #define IC74165_PLATFORM_AVR          // ATmega32
-// #define IC74165_PLATFORM_STM32        // HAL Functions
-// #define IC74165_PLATFORM_ESP32_IDF    // ESP-IDF
-
-
-#if defined(IC74165_PLATFORM_AVR)
-/**
  * @brief  Specify IO Pins of AVR connected to 74165
  */
-#define IC74165_AVR_CLK     8000000UL
-#define IC74165_CLK_DDR     DDRA
-#define IC74165_CLK_PORT    PORTA
-#define IC74165_CLK_NUM     0
-#define IC74165_SHLD_DDR    DDRA
-#define IC74165_SHLD_PORT   PORTA
-#define IC74165_SHLD_NUM    1
-#define IC74165_QH_DDR      DDRA
-#define IC74165_QH_NUM      2
-
-#elif defined(IC74165_PLATFORM_STM32)
-/**
- * @brief  Specify IO Pins of STM32 connected to 74165
- */
-#define IC74165_CLK_GPIO    GPIOA
-#define IC74165_CLK_PIN     GPIO_PIN_0
-#define IC74165_SHLD_GPIO   GPIOA
-#define IC74165_SHLD_PIN    GPIO_PIN_1
-#define IC74165_QH_GPIO     GPIOA
-#define IC74165_QH_PIN      GPIO_PIN_2
-
-#elif defined(IC74165_PLATFORM_ESP32_IDF)
-/**
- * @brief  Specify IO Pins of ESP32 connected to 74165
- */
-#define IC74165_CLK_GPIO    GPIO_NUM_0
-#define IC74165_SHLD_GPIO   GPIO_NUM_1
-#define IC74165_QH_GPIO     GPIO_NUM_2
-#endif
+#define IC74165_AVR_CLK       8000000UL
+#define IC74165_CLK_DDR       DDRA
+#define IC74165_CLK_PORT      PORTA
+#define IC74165_CLK_NUM       0
+#define IC74165_SHLD_DDR      DDRA
+#define IC74165_SHLD_PORT     PORTA
+#define IC74165_SHLD_NUM      1
+#define IC74165_QH_DDR        DDRA
+#define IC74165_QH_PORT       PORTA
+#define IC74165_QH_PIN        PINA
+#define IC74165_QH_NUM        2
+#define IC74165_CLKINH_DDR    DDRA
+#define IC74165_CLKINH_PORT   PORTA
+#define IC74165_CLKINH_NUM    3
+#define IC74165_CLKINH_ENABLE 0
 
 
 
@@ -95,7 +71,8 @@ extern "C" {
  */
 
 /**
- * @brief  Initialize platfor device to communicate 74165.
+ * @brief  Initialize platform dependent layer to communicate with 74165 using
+ *         GPIO.
  * @param  Handler: Pointer to handler
  * @retval None
  */
