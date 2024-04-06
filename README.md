@@ -54,7 +54,6 @@ void app_main(void)
 #include "sdkconfig.h"
 #include "esp_system.h"
 #include "esp_err.h"
-#include "driver/i2c.h"
 #include "driver/gpio.h"
 #include "freertos/FreeRTOS.h"
 #include "74165.h"
